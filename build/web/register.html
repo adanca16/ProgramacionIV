@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head> 
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+    	<!-- Website CSS style -->
+
+    <link rel="icon" type="image/png" href="https://upload.wikimedia.org/wikipedia/en/1/1f/Universidad_Nacional_Costa_Rica.png" />
+
+		<link href="css/bootstrap.min.css" rel="stylesheet">
+    
+    	<link href="css/estilos.css" rel="stylesheet">
+		<!-- Google Fonts -->
+		<link href='https://fonts.googleapis.com/css?family=Passion+One' rel='stylesheet' type='text/css'>
+		<link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
+
+		<title>Registro de Profesor</title>
+
+        <script>
+
+            function provinciaSeleccionada(){
+           
+                var valor = document.getElementById("listaProvincias") .value ;
+                if(valor != -1){
+                    llenarCantones(valor);            
+                }else{
+                    var html = "<select class='form-control' id = 'listaProvincias' onclick='provinciaSeleccionada()'><option>Seleccione Una Provincia</option></select>";
+                            $('#cajaCantones').html(html);
+                }
+            
+            }
+
+
+
+            function llenarCantones(valor){
+                var valor = document.getElementById("listaProvincias") .value ;
+               if(valor >0){
+                $.ajax({
+                        dataType: "json",
+                        url: "https://ubicaciones.paginasweb.cr/provincia/"+valor+"/cantones.json",
+                        data: {},
+                        success: function (data) {
+                            var html = "<select class='form-control' id='listadoCantones' name = 'nombreCanton'  onclick=setDistrito() required=\"\" >";
+                             for(key in data) {
+                                html += "<option value='"+key+"'>"+data[key]+"</option>";
+                            }
+                            
+                            html += "</select>";
+                            $('#cajaCantones').html(html);
+                        }
+                    });
+                
+                }else{
+                    var html = "<select class='form-control'  onclick=setDistrito()  ><option>Seleccione Un Canton</option></select>";
+                            $('#cajaCantones').html(html);
+                }
+            }
+            function setDistrito(){
+               
+                var valorCantones = document.getElementById("listadoCantones") .value ;
+               var valor = document.getElementById("listaProvincias") .value ;
+               if(valor >0){
+                $.ajax({
+                        dataType: "json",
+                     
+                        url: "https://ubicaciones.paginasweb.cr/provincia/"+valor+"/canton/"+valorCantones+"/distritos.json",
+
+                        data: {},
+                        success: function (data) {
+                            var html = "<select class='form-control' id='listadoDistritos' name = 'nombreDistrito'  >";
+                         
+                            for(key in data) {
+                                html += "<option value='"+key+"'>"+data[key]+"</option>";
+                            }
+                            html += "</select>";
+                            $('#listaDistrito').html(html);
+                        }
+                    });
+               
+                }else{
+                    var html = "<select class='form-control'><option value = '0' required=\"\" >Seleccione Un Distrito</option></select>";
+                            $('#listaDistrito').html(html);
+                }
+           }
+           
+           function setDatos(){
+               cargarProvincia();
+               cargarCanton();
+               cargarDistrito();
+           }
+
+
+            function cargarProvincia(){
+                var combo = document.getElementById("listaProvincias");
+                var selected = combo.options[combo.selectedIndex].text;
+                document.getElementById("provincia").value= ""+selected;
+            }
+
+            function cargarCanton(){
+                var combo = document.getElementById("listadoCantones");
+                var selected = combo.options[combo.selectedIndex].text;
+                document.getElementById("canton").value= ""+selected;
+            }
+            
+            function cargarDistrito(){
+                var combo = document.getElementById("listadoDistritos");
+                var selected = combo.options[combo.selectedIndex].text;
+                document.getElementById("distrito").value= ""+selected;
+            }
+
+
+
+        </script>
+
+
+
+	</head>
+	<body>
+    <header>
+        <div class="container-right">
+            <img src="pictures/imagenUna.png">
+        </div>
+    </header>
+
+
+
+		
+    <form class="form-horizontal"  action ="servletRegistrarProfesor"  method="POST">
+<fieldset>
+
+<!-- Form Name -->
+<legend>Registrando un nuevo profesor</legend>
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="cedula">Cedula</label>  
+  <div class="col-md-4">
+  <input id="cedula" name="cedula" type="text" placeholder="#########" class="form-control input-md" required="">
+    
+  </div>
+</div>
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="name">Nombre</label>  
+  <div class="col-md-4">
+  <input id="nombre" name="nombre" type="text" placeholder="Ingrese su nombre" class="form-control input-md" required="">
+    
+  </div>
+</div>
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="apellido1">Primer Apellido</label>  
+  <div class="col-md-4">
+  <input id="apellido1" name="apellido1" type="text" placeholder="Ingrese su primer Apellido" class="form-control input-md" required="">
+    
+  </div>
+</div>
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="apellido2">Segundo Apellido</label>  
+  <div class="col-md-4">
+  <input id="apellido2" name="apellido2" type="text" placeholder="Ingrese su Segundo Apellido" class="form-control input-md" required="">
+    
+  </div>
+</div>
+
+<!-- Text Correo-->
+ <div class="form-group">
+   </br>  </br>
+    <label class="col-md-4 control-label" for="name">Email</label>  
+     <div class="col-md-4">
+    <input type="email" class="form-control" name ="email" id="inputEmail" placeholder="Ejemplo: ejemplo@gmail.com" required="">
+     </div>
+
+  </div>
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="password">Contrasena</label>  
+  <div class="col-md-4">
+  <input id="clave" name="clave" type="text" placeholder="Ingrese su Contrasena" class="form-control input-md" required="">
+    
+  </div>
+</div>
+
+
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="contact">Telefono</label>  
+  <div class="col-md-4">
+  <input id="telefono" name="telefono" type="phone" placeholder="Ejemplo: 2345-5678" class="form-control input-md" required=""  >
+    
+  </div>
+</div>
+
+<!-- Select Provincia -->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="listaProvincias">Provincia</label>
+  <div class="col-md-4">
+      <select id="listaProvincias" name="nombreProvincia" class="form-control" onclick="provinciaSeleccionada()" required="">
+      <option value="-1">Seleccione Una Provincia</option>
+      <option value="1"  id="San Jose">San Jose</option>
+      <option value="2">Alajuela</option>
+      <option value="3">Cartago</option>
+      <option value="4">Heredia</option>
+      <option value="5">Guanacaste</option>
+      <option value="6">Puntarenas</option>
+      <option value="7">Limon</option>
+    </select>
+  </div>
+</div>
+
+
+<!-- Select Canton -->
+<div class="form-group" >
+  <label class="col-md-4 control-label" for="nombreCantonL">Canton</label>
+  <div class="col-md-4" id="cajaCantones">
+
+
+  </div>
+</div>
+
+
+
+<!-- Select Canton -->
+<div class="form-group" id="cajaDistrito" >
+  <label class="col-md-4 control-label" for="cajaDistrito">Distrito</label>
+  <div class="col-md-4" id="listaDistrito" >
+ 
+  </div>
+</div>
+
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="direccion">Direccion</label>  
+  <div class="col-md-4">
+      <input id="direccion" name="direccion" type="text" placeholder="Ingrese su direccion" class="form-control input-md" required="" onclick="setDatos()">
+    
+  </div>
+</div>
+<input name="provincia" id = "provincia" hidden="">
+<input name="canton" id = "canton" hidden="">
+<input name="distrito" id = "distrito" hidden="">
+     
+
+<!-- Button -->
+
+<div class="form-group">
+  <label class="col-md-4 control-label" for="signup"></label>
+  <div class="col-md-4">
+      <input id="Continuar" value="Continuar" type="submit"  class="btn btn-success">
+    <a href="index.html"> <input type="button" value="Regresar"  class="btn btn-warning"></a>
+    
+  </div>
+</div>
+
+</fieldset>
+</form>
+
+
+     <!-- Footer -->
+        <footer>
+            <div class="row" align="center">
+                <div class="col-lg-12">
+                    <p>Copyright &copy; Creado bajo la normativa de Universidad Nacional de Costa Rica </p>
+                    <p>Compania: Carranza-Alfaro</p>
+                </div>
+            </div>
+            <!-- /.row -->
+        </footer>
+
+
+
+		 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+	</body>
+</html>

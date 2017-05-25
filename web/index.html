@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Universidad Nacional de CR.</title>
+        <meta charset="UTF-8">
+
+        <link rel="icon" type="image/png" href="https://upload.wikimedia.org/wikipedia/en/1/1f/Universidad_Nacional_Costa_Rica.png" />
+
+
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+         <link rel="stylesheet" href="estilos.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+                <!-- Bootstrap Core CSS -->
+            <link href="css/bootstrap.min.css" rel="stylesheet">
+
+            <!-- Custom CSS -->
+            <link href="css/half-slider.css" rel="stylesheet">
+      
+   </head>
+        <script >
+            function setMapa(){
+                var salida = " <iframe   src='https://www.google.com/maps/embed?pb=!1m28!1m12!1m3!1d62804.6960538017!2d-83.95739164770534!3d10.318379614045226!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m13!3e6!4m5!1s0x8fa0bd8d9b8e5acd%3A0x94e69ec4278907c8!2sUniversidad+Nacional+Region+Huetar+Norte+y+Caribe+Sarapiqu%C3%AD%2C+carretera+a+Puerto+Viejo+de+Sarapiqu%C3%AD%2C+229%2C+Provincia+de+Heredia%2C+Sarapiqu%C3%AD%2C+Costa+Rica!3m2!1d10.3183815!2d-83.9223719!4m5!1s0x0%3A0x94e69ec4278907c8!2sUniversidad+Nacional+Region+Huetar+Norte+y+Caribe+Sarapiqu%C3%AD!3m2!1d10.3183815!2d-83.9223719!5e0!3m2!1ses-419!2smx!4v1492927005826' width='600' height='450' frameborder='0' style='border:0' allowfullscreen></iframe>";              
+                document.getElementById("capaInformacion").innerHTML = salida;
+                console.log(salida);
+            }
+
+            function verificarLogin(boton){
+                if(boton==2){
+                    console.log("click");
+                    window.location='register.html';
+                }else{
+                    login();
+                }
+            }
+
+function setContactenos(){
+      var nosotrosUna="<h2> Universidad Nacional</h2>";
+         nosotrosUna+= "<h3> Campus Sarapiqui.</h3>";
+          
+            nosotrosUna+="<h4> La Victoria de Horquetas, tan solo a una hora de San Jos&eacute;, tomando la ruta 32 y desviándose en La Unión (Guápiles – Río Frío) siguiendo 15 km al norte carretera a Puerto Viejo, y 3km tomando la desviación al centro de Río Frío.</h4> ";
+            nosotrosUna+="<h3> Horquetas - Sarapiquí, Heredia.<h3> ";
+            nosotrosUna+="<h4> Costa Rica</h4> ";
+
+            nosotrosUna+="<a href= 'mailto:sarapiqui@una.ac.cr'> <h4>Correo Electronico </h4></a>";
+            nosotrosUna+="<h4>Teléfono: 	(506) 2764-4600 / 3159 </h4>";
+            nosotrosUna+="<h4>Fax: 	(506) 2764-3005</h4>";
+            nosotrosUna+="<h4>Número de t&eacute;lefono mobil: 	(506) 2764-2975 </h4>";
+            nosotrosUna+="<a href= 'http://www.sarapiqui.una.ac.cr'> <h4>Sitio Web </h4></a>";   
+            document.getElementById("capaInformacion").innerHTML = nosotrosUna;
+        }
+
+function setMision(){
+      var nosotrosUna="<h2> Universidad Nacional</h2>";
+         nosotrosUna+= "<h3> Campus Sarapiqui.</h3> <h4>";
+          nosotrosUna+= "Somos un Campus universitario que se inserta en la Región Huetar Norte y Caribe para atender las necesidades vigentes, para contribuir a pensar y diseñar el futuro con calidad y pertinencia, en forma gradual pero con solidez, mediante planes de estudio conducentes a título, educación permanente, actividades universitarias y de vinculación externa, programas de investigación, de extensión y producción para apoyar el desarrollo integral de sus estudiantes, de la comunidad, del Campus y de la Región</h4>";
+            document.getElementById("capaInformacion").innerHTML = nosotrosUna;
+        }
+
+
+        function setVision(){
+      var nosotrosUna="<h2> Universidad Nacional</h2>";
+         nosotrosUna+= "<h3> Campus Sarapiqui.</h3>";
+          nosotrosUna+= "<h4>Ser el espacio académico más importante de la Región Huetar Norte y Caribe, conteniendo instalaciones acorde con el desarrollo que la zona demanda, desarrollando planes de estudio, actividades de educación permanente, programas y proyectos de docencia, investigación, extensión y producción, y actividades universitarias articuladas a las necesidades de la zona, con un recurso humano calificado, esencialmente de tiempo completo, generador de propuestas de cambios y acciones en las áreas específicas de desarrollo, así como en los procesos de enseñanza y aprendizaje, permitiendo el avance y retroalimentación de su quehacer, graduando estudiantes que se constituyen en el mejor aporte al desarrollo de la zona, convirtiendo la oferta académica en una de sus mejores fortalezas</h4>";
+            document.getElementById("capaInformacion").innerHTML = nosotrosUna;
+        }
+             function login(){
+                document.getElementById("errorLogin").innerHTML = "";
+                var usuario = document.getElementById("idCedula").value;
+                var contrasena = document.getElementById("password").value;
+                var cedula = "";
+                var xhttp = new XMLHttpRequest();
+                var found = false;
+
+                xhttp.onreadystatechange = function() {
+               if (this.readyState == 4 && this.status == 200) {
+                    var usuarios = JSON.parse(this.responseText);
+					for(var i = 0; i < usuarios.length; i++){
+                        if(usuarios[i].id == usuario && usuarios[i].passsword == contrasena ){
+                             window.location='redireccionar.jsp?cedula='+usuarios[i].id+'&nombreUsuario='+usuarios[i].name+"&type="+usuarios[i].type;
+                            found = true;
+                        }
+					}
+
+                if(!found){
+                    // limpiara las cajas de login..
+                    document.getElementById("errorLogin").innerText = "Verifiqui los datos!!!";
+                }else{
+
+//                    window.location='redireccionar.jsp?user='+tipoUsuario+'&email='+usuario;
+                }
+            }
+            }; 
+           xhttp.open("GET", "teacher.json?cachebuster"+ Math.random().toString(), true);
+            xhttp.send();                                
+
+          }
+        function nobackbutton(){
+            //window.location.hash="no-back-button";
+            window.location.hash="";
+            window.location.hash="Again-No-back-button" //chrome
+            window.onhashchange=function(){window.location.hash="";}
+         }
+         </script>
+
+    
+    
+    
+<body onload="nobackbutton()">
+
+        <header>
+            <table class="container-fluid  " width="90%">
+                <tr>
+                    <td >
+                        <img src="pictures/imagenUna.png " > 
+                    </td>
+                    <td>
+                    <h2  class="col-lg-12">
+                            Sistema de Reclutamiento de Profesore para el Campus Sarapiqui
+
+                    </h2>
+                    </td>
+                </tr>
+            </table>
+        </header>
+
+
+
+<nav class="navbar navbar-inverse" role="navigation">
+
+  <!-- El logotipo y el icono que despliega el menú se agrupan
+       para mostraros mejor en los dispositivos móviles -->
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse"
+            data-target=".navbar-ex1-collapse">
+      <span class="sr-only">Desplegar navegación</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+  
+  </div>
+ 
+  <!-- Agrupar los enlaces de navegación, los formularios y cualquier
+       otro elemento que se pueda ocultar al minimizar la barra -->
+  <div class="collapse navbar-collapse navbar-ex1-collapse" >
+    <ul class="nav navbar-nav"  >
+      <li class="dropdown"><a href="index.html" >Incio</a></li>
+         <li><a href="#"  onclick="setContactenos() ">Contacto</a></li>
+
+        <li><a onclick="setMision()" href="#">Mision</a></li>
+      
+        <li><a onclick="setVision()" href="#">Vision</a></li>
+      
+        <li><a onclick="setMapa()" href="#">Ubicacion</a></li>
+      
+    </ul>
+
+        
+    <ul class="nav navbar-nav navbar-right">
+
+
+        <div class="container-fluid" style="margin-top: -10px;">
+
+            <form id="signin" class="navbar-form navbar-right" role="form"   method="POST" action="ValidarUsuario">
+            <h5 id="errorLogin" style="color: red"></h5>
+                            <div class="input-group">
+                                
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                <input id="idCedula" type="text" class="form-control" name="idCedula" value="" placeholder="Cedula">                                        
+                            </div>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                <input id="contrasena" type="password" class="form-control" name="contrasena" value="" placeholder="Contrasena">                                        
+                            </div>
+
+            <button type="submit" class="btn btn-primary"  >Acceder</button>
+                            <a href = "register.html" > Registrarme</a>
+            </form>
+        </div>
+    
+        </ul>
+      </li>
+    </ul>
+  </div>
+
+</nav>
+    <header id="myCarousel" class="carousel slide">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1"></li>
+            <li data-target="#myCarousel" data-slide-to="2"></li>
+             <li data-target="#myCarousel" data-slide-to="3"></li>
+        </ol>
+
+        <!-- Wrapper for Slides -->
+        <div class="carousel-inner" style="margin-top: -13px;">
+            <div class="item active">
+                <!-- Set the first background image using inline CSS below. -->
+                <div class="fill" style="background-image:url('http://www.una.ac.cr/images/resized/images/sampledata/slideshow/022%20Banner%20PAG%20WEB%20INST-%20cita%20calendario_960_278.png ');"></div>
+            </div>
+            <div class="item">
+                <!-- Set the second background image using inline CSS below. -->
+                <div class="fill" style="background-image:url('http://www.una.ac.cr/images/resized/images/sampledata/slideshow/023%20Banner%20PAG%20WEB%20INST-%20cita%20calendario_960_278.png ');"></div>
+             
+            </div>
+            <div class="item">
+                <!-- Set the third background image using inline CSS below. -->
+                <div class="fill" style="background-image:url('http://www.una.ac.cr/images/resized/images/sampledata/slideshow/021%20Banner%20PAG%20WEB%20INST-%20cita%20calendario_960_278.png');"></div>
+            </div>
+
+
+              <div class="item">
+                <!-- Set the third background image using inline CSS below. -->
+                <div class="fill" style="background-image:url('http://www.una.ac.cr/images/resized/images/sampledata/slideshow/020%20Banner%20PAG%20WEB%20INST-%20cita%20calendario_960_278.png ');"></div>
+            </div>
+
+        </div>
+
+        <!-- Controls -->
+        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+            <span class="icon-prev"></span>
+        </a>
+        <a class="right carousel-control" href="#myCarousel" data-slide="next">
+            <span class="icon-next"></span>
+        </a>
+
+    </header>
+
+    
+
+  <hr class="star-primary">
+
+
+    <!-- Page Content -->
+    <div class="container">
+
+        <div class="row">
+            
+            <div class="col-lg-2 col-xs-1" align = "center">
+            </div>
+            <div class="col-lg-8 col-xs-10" align = "center" id="capaInformacion">
+            </div>
+
+            <div class="col-lg-2 col-xs-1" align = "center">
+            </div>
+        </div>
+
+        <hr>
+
+        <!-- Footer -->
+        <footer align= "center">
+            <div class="row">
+                <div class="col-lg-12" style="text-align: center">
+                    <p>Copyright &copy; Creado bajo la normativa de Universidad Nacional de Costa Rica </p>
+                    <p>Compania: Carranza-Alfaro</p>
+                </div>
+            </div>
+            <!-- /.row -->
+        </footer>
+
+    </div>
+    <!-- /.container -->
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Script to Activate the Carousel -->
+    <script>
+    $('.carousel').carousel({
+        interval: 5000 //changes the speed
+    })
+    </script>
+
+</body>
+
+</html>
+
