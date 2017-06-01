@@ -12,13 +12,15 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author AC1993
  */
-@WebFilter(filterName = "Filtro", urlPatterns = {"/ValidarUsuario"})
+@WebFilter(filterName = "Filtro", urlPatterns = {"/welcomeUser.jsp"})
 public class Filtro implements Filter {
     
     private static final boolean debug = true;
@@ -35,7 +37,6 @@ public class Filtro implements Filter {
             throws IOException, ServletException {
         if (debug) {
            
-           request.getRequestDispatcher("errorServlet").forward(request,response);
                    
             log("Filtro:DoBeforeProcessing");
         }
@@ -65,7 +66,18 @@ public class Filtro implements Filter {
     private void doAfterProcessing(ServletRequest request, ServletResponse response)
             throws IOException, ServletException {
         if (debug) {
+            
+		HttpServletRequest temp = (HttpServletRequest) request;        
+                if(temp.getSession().getAttribute("usuario") == null){
+                    request.getRequestDispatcher("index.html").forward(request,response);
+                }else{
+                     request.getRequestDispatcher("Principal").forward(request,response);
+                }
+        
+            
             log("Filtro:DoAfterProcessing");
+            
+                   
         }
 
         // Write code here to process the request and/or response after

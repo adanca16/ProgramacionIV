@@ -34,9 +34,7 @@ public class ValidarUsuario extends HttpServlet {
             session.setAttribute("errores", error);
             request.getRequestDispatcher("errorServlet").forward(request,response);
         }else{
-            
             session.setAttribute("usuario", uTemp2);
-            
            // request.sendRedirect("");
             request.getRequestDispatcher("Principal").forward(request,response);
             // redireccionanado..

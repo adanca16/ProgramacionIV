@@ -43,17 +43,20 @@
                 }
             }
 
-            function setCantidadRestante(){
-                var texto = document.getElementById("descripcion").value;
-                var valor = 200- texto.length-1;
-                if(valor>0){
-                        document.getElementById("cajaRestante").innerHTML= "Tiene "+ valor+ " de letras restantes!!!";                    
+            function visibleExperiencia(){
+                var valor = document.getElementById("tieneExperiencia").value; 
+                alert(valor);
+                var temp = "";
+                if(valor.equals ("SI")){    
+                    alert("Tiene experiencia");
+                     temp = "<label class=\"col-md-4 control-label\" for=\"expeLaboral\">Experiencia Laboral</label> <div class=\"col-md-4\"> <input id=\"experienciaLaboral\" name=\"experienciaLaboral\" type=\"number\" placeholder=\"Anos desempenandose en esta Area\" class=\"form-control input-md\" required=\"\"></div>";    
                 }else{
-                    document.getElementById("cajaRestante").disabled="false";
+                    alert("No Tiene experiencia");
+                    temp = "";
                 }
-                
-
+                document.getElementById("cajaExperiencia").innerHTML= temp;
             }
+            
         </script>
         
 
@@ -101,14 +104,21 @@
 </div>
 
 
-
 <!-- Text input-->
 <div class="form-group">
-  <label class="col-md-4 control-label" for="expeLaboral">Experiencia Laboral</label>  
-  <div class="col-md-4">
-      <input id="experienciaLaboral" name="experienciaLaboral" type="number" placeholder="Anos desempenandose en esta Area" class="form-control input-md" required="">
-    
-  </div>
+  <label class="col-md-4 control-label" for="city">Tienes experiencia como docente</label>  
+  <div class="col-md-1">
+      <label >Si</label> <input id="sitieneExperiencia" name="tieneExperiencia" type="radio" required="" value="SI"  onclick="visibleExperiencia()"  >
+    </br>
+    <label >No</label> <input id="notieneExperiencia" name="tieneExperiencia" type="radio"  required=""  value="NO"  onclick="visibleExperiencia()" >
+  </div> 
+</div>
+
+
+
+
+<!-- Text input-->
+<div class="form-group" id="cajaExperiencia" >
 </div>
 
 
@@ -125,10 +135,9 @@
 
 <!-- Text input-->
 <div class="form-group">
-  <label class="col-md-4 control-label" for="area">Descripcion</label>  
+  <label class="col-md-4 control-label" for="area">Porque desea loborar con nosotros?</label>  
   <div class="col-md-4">
-    <span id="cajaRestante">Tiene 200 caracteres Restantes</span>
-  <textarea id="descripcion" name="descripcion" type="" placeholder="Ingrese una breve descripcion"  onkeypress="setCantidadRestante()" class="form-control input-md" required=""></textarea>
+  <textarea id="descripcion" name="descripcion" type="" placeholder="Ingrese una breve descripcion"   class="form-control input-md" required=""></textarea>
     
   </div>
 </div>
@@ -136,7 +145,7 @@
 <!-- Text Telefono1-->
  <div class="form-group">
    </br>  </br>
-    <label class="col-md-4 control-label" for="name">Numero de Referencia 1 </label>  
+    <label class="col-md-4 control-label" for="name">Telefono de Referencia  </label>  
      <div class="col-md-4">
          <input type="tel" class="form-control input-md " name="numeroReferencia1" placeholder="Telefono 1" required="">
      </div>
@@ -151,17 +160,6 @@
      </div>
   </div>
 
-
-
-<!-- Text input-->
-<div class="form-group">
-  <label class="col-md-4 control-label" for="city">Tienes experiencia como docente</label>  
-  <div class="col-md-1">
-    <label >Si</label> <input id="sitieneExperiencia" name="tieneExperiencia" type="radio" required=""  >
-    </br>
-    <label >No</label> <input id="notieneExperiencia" name="tieneExperiencia" type="radio"  required=""  >
-  </div> 
-</div>
 
 
 

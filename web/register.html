@@ -18,9 +18,8 @@
         <script>
 
             function provinciaSeleccionada(){
-           
                 var valor = document.getElementById("listaProvincias") .value ;
-                if(valor != -1){
+                if(valor !== -1){
                     llenarCantones(valor);            
                 }else{
                     var html = "<select class='form-control' id = 'listaProvincias' onclick='provinciaSeleccionada()'><option>Seleccione Una Provincia</option></select>";
@@ -28,9 +27,6 @@
                 }
             
             }
-
-
-
             function llenarCantones(valor){
                 var valor = document.getElementById("listaProvincias") .value ;
                if(valor >0){
@@ -107,7 +103,10 @@
                 document.getElementById("distrito").value= ""+selected;
             }
 
-
+            function levantarContrato() {
+                alert("Esta informacion unicamente estara disponible en el area de recursos humanos   del Colegio Ambientalista de la Universidad Nacinal de Costa Rica, por lo que esta informacion, unicamente sera utilizada para fines educativos. Los profesores que no se encuentren laborando en dicho centro, se mantendra almacenada su informacion para el dia que se desee acceder a su informacion, se tendra acceso. Queda bajo la responsabilidad de actualizar la informacion personal cuando realice una modificacion , por ejemplo:\n1. Cambio de telefono\n2. Vive en otro lugar \n3. Cambio de Correo.\n Una vez que pase a la siguiente etapa, la informacion sera almacenada en nuestras base de datos.");
+            }
+            
 
         </script>
 
@@ -190,7 +189,7 @@
 <div class="form-group">
   <label class="col-md-4 control-label" for="contact">Telefono</label>  
   <div class="col-md-4">
-  <input id="telefono" name="telefono" type="phone" placeholder="Ejemplo: 2345-5678" class="form-control input-md" required=""  >
+      <input id="telefono" name="telefono" type="number" placeholder="Ejemplo: 23455678" class="form-control input-md" required=""  >
     
   </div>
 </div>
@@ -237,7 +236,7 @@
 <div class="form-group">
   <label class="col-md-4 control-label" for="direccion">Direccion</label>  
   <div class="col-md-4">
-      <input id="direccion" name="direccion" type="text" placeholder="Ingrese su direccion" class="form-control input-md" required="" onclick="setDatos()">
+      <input id="direccion" name="direccion" type="text" placeholder="Ingrese su direccion" class="form-control input-md" required="" onselect="setDatos()">
     
   </div>
 </div>
@@ -247,10 +246,15 @@
      
 
 <!-- Button -->
+<div class="form-group" style="text-align: center">
+    <div class="col-md-8" >
+        <input type="checkbox" required="" onclick="levantarContrato()"><span>Acepto los terminos de uso</span>
+    </div>  
+</div>
 
 <div class="form-group">
   <label class="col-md-4 control-label" for="signup"></label>
-  <div class="col-md-4">
+  <div class="col-md-4 "  >
       <input id="Continuar" value="Continuar" type="submit"  class="btn btn-success">
     <a href="index.html"> <input type="button" value="Regresar"  class="btn btn-warning"></a>
     

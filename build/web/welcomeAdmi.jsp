@@ -1,3 +1,12 @@
+<%@page import="modelo.Profesor"%>
+<%@page import="modelo.Consulta"%>
+<%
+        Consulta consulta = new Consulta();
+        Usuario usuario = (Usuario)session.getAttribute("user");
+        Profesor profesor = consulta.getProfesor(usuario.getUsuario());
+    %>
+    
+    
 <%@page import="modelo.Usuario"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -188,7 +197,6 @@
                 <ul class="nav navbar-nav">
                    <li style="color: white" class="navbar-brand">
                         <%
-                        Usuario usuario = (Usuario)session.getAttribute("user");
                         out.print("Bienvenido  "+usuario.getNombre());%> <!---  Capturar el valor de la cedula del  usuario -->
                     </li>
                     
